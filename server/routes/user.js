@@ -15,11 +15,21 @@ routes.post('/api/signup', (req,res)=>{
         if(err) return res.status(400).send(err);
         res.status(200).json({
             post: true,
-            user: doc
+            userId: doc
             
 
         })
     })
+})
+//Update
+routes.post('/api/update',(req,res)=>
+{
+    User.findByIdAndUpdate(req.body.id, req.body, {new:true},
+         (err,doc)=>
+         {
+        if(err) return res.status(400).send(err);
+            res.status(200).send(doc);
+        })
 })
 
 routes.post('/api/login', function(req,res){
@@ -40,8 +50,8 @@ routes.post('/api/login', function(req,res){
     
                 res.cookie('auth',user.token).json({
                     isAuth: true,
-                    user: user,
-                    message: 'Login successfully'
+                    id: user._id,
+                    username: user.username
                 })
             })
 
