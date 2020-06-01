@@ -4,6 +4,7 @@ import {Form, Button} from 'react-bootstrap';
 import Input from '../../components/Forms/InputField';
 import Close from '@material-ui/icons/Close';
 import {IconButton, Paper } from '@material-ui/core';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import QuillEditor from '../../components/Editor/QuillEditor';
 
@@ -36,9 +37,22 @@ class Create extends Component{
         },
 
         formIsValid: false,
-        editorText: '<p>afasf</p>'
+        description: ''
     };
-
+    postDataHandler = ()=>{
+        if(this.state.formIsValid){
+            const data = {
+                build: this.state.createBuildForm.build.value,
+                description:this.state.description        
+            }
+    
+            axios.post('/api/build/create',data)
+                .then(res => {
+                    console.log(res);
+                });
+        } else console.log("Fill fields");
+        
+    }
 
     isCheckValidity = (value, rules) => {
         let isValid = true;
@@ -80,8 +94,8 @@ class Create extends Component{
     }
 
     editorChangeHandle(value) {
-        this.setState({ editorText: value })
-        console.log(this.state.editorText);
+        this.setState({ description: value })
+        console.log(this.state.description);
     }
 
     render(){
@@ -120,7 +134,7 @@ class Create extends Component{
                         <h3 >Create Build</h3>
                     </div>
                     
-                    <Form >
+                    <Form onSubmit={this.postDataHandler}>
                         {formElementsArray.map(formElement => (
                             
                             <Input className='mt-4' 
@@ -137,7 +151,7 @@ class Create extends Component{
                         <div className='mt-4'>
                             <QuillEditor
                                 label="Description"
-                                value={this.state.editorText}
+                                value={this.state.description}
                                 onChange={this.editorChangeHandle}
                             />
                         </div>

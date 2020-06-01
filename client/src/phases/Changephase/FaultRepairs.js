@@ -4,6 +4,7 @@ import {Form, Button, Card} from 'react-bootstrap';
 import InputField from '../../components/Forms/InputField';
 import Close from '@material-ui/icons/Close';
 import {IconButton, Paper} from '@material-ui/core';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import QuillEditor from '../../components/Editor/QuillEditor';
 
@@ -103,9 +104,25 @@ class FaultReq extends Component{
         },
 
         formIsValid: false,
-        editorText: '<p>afasf</p>'
+        description: ''
     };
-
+    postDataHandler = ()=>{
+        if(this.state.formIsValid){
+            const data = {
+            
+                selectBuild:this.state.correctiveMaintenanceForm.selectBuild.value,
+                faultType:this.state.correctiveMaintenanceForm.faultType.value,
+                fault:this.state.correctiveMaintenanceForm.fault.value,
+                module:this.state.correctiveMaintenanceForm.module.value,
+                description:this.state.description,
+                 }
+            axios.post('/api/correctivemaintenance/create',data)
+            .then(res => {
+                console.log(res);
+            });
+    } else console.log("Fill fields");
+    
+}
 
     isCheckValidity = (value, rules) => {
         let isValid = true;
@@ -148,8 +165,8 @@ class FaultReq extends Component{
 
 
     editorChangeHandle(value) {
-        this.setState({ editorText: value })
-        console.log(this.state.editorText);
+        this.setState({ description: value })
+        console.log(this.state.description);
     }
 
 
@@ -190,7 +207,7 @@ class FaultReq extends Component{
                         <div className="mb-2">
                             <h3 >Corrective maintenance</h3>
                         </div>
-                        <Form >
+                        <Form onSubmit={this.postDataHandler}>
                         {formElementsArray.map(formElement => (
                             <InputField className='mt-4' 
                                 key={formElement.id} 
@@ -204,7 +221,7 @@ class FaultReq extends Component{
                         <div className='mt-4'>
                             <QuillEditor
                                 label="Description"
-                                value={this.state.editorText}
+                                value={this.state.description}
                                 onChange={this.editorChangeHandle}
                             />
                         </div>

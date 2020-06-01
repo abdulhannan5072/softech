@@ -5,6 +5,7 @@ import InputField from '../../components/Forms/InputField';
 import Close from '@material-ui/icons/Close';
 import {IconButton, Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
+import axios from 'axios';
 import QuillEditor from '../../components/Editor/QuillEditor';
 
 
@@ -106,7 +107,25 @@ class FuntionAddition extends Component{
         requirements: '',
         description:''
     };
-
+    postDataHandler = ()=>{
+        if(this.state.formIsValid){
+            const data = {
+            
+                selectBuild:this.state.perfectiveMaintenanceForm.selectBuild.value,
+                functionalityType:this.state.perfectiveMaintenanceForm.functionalityType.value,
+                functionalityName:this.state.perfectiveMaintenanceForm.funcationallityName.value,
+                module:this.state.perfectiveMaintenanceForm.module.value,
+                description:this.state.description,
+                requirements:this.state.requirements,
+               
+                 }
+            axios.post('/api/perfectivemaintenance/create',data)
+            .then(res => {
+                console.log(res);
+            });
+    } else console.log("Fill fields");
+    
+}
 
     isCheckValidity = (value, rules) => {
         let isValid = true;
@@ -191,7 +210,7 @@ class FuntionAddition extends Component{
                         <div className="mb-2">
                             <h3 >Perfective Maintenance</h3>
                         </div>
-                        <Form >
+                        <Form onSubmit={this.postDataHandler} >
                         {formElementsArray.map(formElement => (
                             <InputField className='mt-4' 
                                 key={formElement.id} 

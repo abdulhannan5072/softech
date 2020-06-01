@@ -3,6 +3,7 @@ import Aux from "../../hoc/_Aux";
 import {Form, Button, Card} from 'react-bootstrap';
 import InputField from '../../components/Forms/InputField';
 import Close from '@material-ui/icons/Close';
+import axios from 'axios';
 import {IconButton, Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
 import QuillEditor from '../../components/Editor/QuillEditor';
@@ -103,9 +104,26 @@ class EnvironmentalAdaptation extends Component{
         },
 
         formIsValid: false,
-        editorText: ''
+        requirements: ''
     };
-
+    postDataHandler = ()=>{
+        if(this.state.formIsValid){
+            const data = {
+            
+                selectBuild:this.state.adaptiveMaintenanceForm.selectBuild.value,
+                envAdaptType:this.state.adaptiveMaintenanceForm.envAdaptType.value,
+                name:this.state.adaptiveMaintenanceForm.name.value,
+                module:this.state.adaptiveMaintenanceForm.module.value,
+                requirements:this.state.requirements,
+             }
+    
+            axios.post('/api/adaptivemaintenance/create',data)
+                .then(res => {
+                    console.log(res);
+                });
+        } else console.log("Fill fields");
+        
+    }
 
     isCheckValidity = (value, rules) => {
         let isValid = true;
@@ -148,7 +166,7 @@ class EnvironmentalAdaptation extends Component{
 
 
     editorChangeHandle(value) {
-        this.setState({ editorText: value })
+        this.setState({ requirements: value })
         
     }
 
@@ -188,7 +206,7 @@ class EnvironmentalAdaptation extends Component{
                         <div className="mb-2">
                             <h3 >Adaptive Maintenance</h3>
                         </div>
-                        <Form >
+                        <Form onSubmit={this.postDataHandler}>
                         {formElementsArray.map(formElement => (
                             <InputField className='mt-4 ' 
                                 key={formElement.id} 
@@ -202,7 +220,7 @@ class EnvironmentalAdaptation extends Component{
                         <div className='mt-4'>
                             <QuillEditor
                                 label="Adoptation Requirements"
-                                value={this.state.editorText}
+                                value={this.state.requirements}
                                 onChange={this.editorChangeHandle}
                             />
                         </div>

@@ -5,6 +5,7 @@ import InputField from '../../components/Forms/InputField';
 import Close from '@material-ui/icons/Close';
 import TagDropDown from '../../components/Forms/Tag';
 import {IconButton, Paper} from '@material-ui/core';
+import axios from 'axios';
 import {Link} from 'react-router-dom';
 import './style.css';
 // import AutoComplete from '../Forms/AutoComplete';
@@ -86,6 +87,22 @@ class Create extends Component{
         formIsValid: false,
 
     };
+    postDataHandler = ()=>{
+        if(this.state.formIsValid){
+            const data = {
+                projectName: this.state.createProjectForm.projectName.value,
+                key:this.state.createProjectForm.key.value,
+                projectType:this.state.createProjectForm.projectType.value,
+               
+            }
+    
+            axios.post('/api/projects/create',data)
+                .then(res => {
+                    console.log(res);
+                });
+        } else console.log("Fill fields");
+        
+    }
 
 
     isCheckValidity = (value, rules) => {
@@ -168,7 +185,7 @@ class Create extends Component{
                         <h3 >Create Project</h3>
                     </div>
                     
-                    <Form  >
+                    <Form onSubmit={this.postDataHandler} >
                         {formElementsArray.map(formElement => (
                             <InputField className='mt-4' 
                                 key={formElement.id} 
@@ -183,7 +200,7 @@ class Create extends Component{
                         
                         <div className='w-25'>
                         <Button disabled={!this.state.formIsValid} className='mt-5 ml-3' variant="dark" type="submit">
-                            Create
+                            Create 
                         </Button>
                         </div>
                     </Form>
