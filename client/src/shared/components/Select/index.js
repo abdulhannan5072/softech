@@ -1,6 +1,7 @@
 import React from 'react';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import InputLabel from '@material-ui/core/InputLabel';
+import {InputBase, NativeSelect} from '@material-ui/core';
 
 const BootstrapInput = withStyles((theme) => ({
   root: {
@@ -40,21 +41,26 @@ const BootstrapInput = withStyles((theme) => ({
 
 
 export default function CustomizedSelects({label, items}) {
-  const [age, setAge] = React.useState('');
+  const [age, setAge] = React.useState('to do');
   const handleChange = (event) => {
     setAge(event.target.value);
   };
+
+  const LabelDiv = "";
+  if(label){
+    LabelDiv = <InputLabel htmlFor="demo-customized-select-native">{label}</InputLabel>
+  }
+
   return (
     <div>
-      
-    <InputLabel htmlFor="demo-customized-select-native">{label}</InputLabel>
+      {LabelDiv}
         <NativeSelect
           id="demo-customized-select-native"
           value={age}
           onChange={handleChange}
           input={<BootstrapInput />}
         >
-            <option aria-label="None" value="" />
+            {/* <option label="None" value="" /> */}
 
             {items.map(option => (
                 <option key={option.value} value={option.value}>

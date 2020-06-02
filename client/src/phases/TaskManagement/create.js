@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input
+import {FlatCard, Input, Select,
 } from '../../shared/components';
 import {Row, Col 
 } from 'react-bootstrap';
@@ -10,6 +10,21 @@ import Divider from '@material-ui/core/Divider';
 import {Link} from 'react-router-dom';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertLinkIcon from '@material-ui/icons/InsertLink';
+
+const items =[
+    {
+        value: 'to do',
+        label: 'To Do'
+    },
+    {
+        value: 'progress',
+        label: 'In Progress'
+    },
+    {
+        value: 'done',
+        label: 'Done'
+    },
+]
 
 class CreateTask extends Component{
 
@@ -40,7 +55,7 @@ class CreateTask extends Component{
                         <Link to='' ><IconButton><Close/></IconButton></Link>
                     </div>
                     <Input value='Task Name' />
-                    <div className='m-3' >
+                    <div className='' >
                         
                         <IconButton>
                             <AttachFileIcon  />
@@ -49,6 +64,10 @@ class CreateTask extends Component{
                         <IconButton>
                             <InsertLinkIcon  />
                         </IconButton>
+                    </div>
+
+                    <div>
+                        <Select items={items} />
                     </div>
                 </div>
             </Col>
