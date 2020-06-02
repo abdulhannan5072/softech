@@ -67,7 +67,7 @@ export default {
                     id: 'Testp',
                     title: 'Test Phase',
                     type: 'item',
-                    url: '#',
+                    url: '/project/createTest',
                     icon: 'feather icon-home',
                 }
             ]
