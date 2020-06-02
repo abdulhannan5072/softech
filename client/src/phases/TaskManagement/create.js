@@ -10,6 +10,16 @@ import Divider from '@material-ui/core/Divider';
 import {Link} from 'react-router-dom';
 import AttachFileIcon from '@material-ui/icons/AttachFile';
 import InsertLinkIcon from '@material-ui/icons/InsertLink';
+import QuillEditor from '../../components/Editor/QuillEditor';
+import {Button } from 'react-bootstrap';
+// import {divScrollable} from './Styles';
+import {withStyles} from '@material-ui/core/styles';
+
+// const useStyles = withStyles((theme) => {
+//     root: {
+//         margin: theme.spacing(2);
+//     }
+// })
 
 const items =[
     {
@@ -28,7 +38,18 @@ const items =[
 
 class CreateTask extends Component{
 
-  render(){
+    constructor(props){
+        super(props);
+        
+        this.state = {
+            description:''
+        }
+    }
+    editorChangeHandle(value) {
+        this.setState({ description: value });
+    }
+
+    render(){
 
     return(
       <Aux>
@@ -50,12 +71,14 @@ class CreateTask extends Component{
             </Col>
             
             <Col md={4} >
-                <div>
-                    <div className='d-flex flex-row-reverse mb-3 '>
+                <div  >
+                    <div className='d-flex flex-row-reverse m-2 '>
                         <Link to='' ><IconButton><Close/></IconButton></Link>
                     </div>
-                    <Input value='Task Name' />
-                    <div className='' >
+                    <div className='m-2' >
+                        <Input fullWidth id='name' value='Task Name' />
+                    </div>
+                    <div className='m-2' >
                         
                         <IconButton>
                             <AttachFileIcon  />
@@ -66,8 +89,36 @@ class CreateTask extends Component{
                         </IconButton>
                     </div>
 
-                    <div>
+                    <div className='m-2'>
                         <Select items={items} />
+                    </div>
+
+                    <div className='m-2' >
+                        <QuillEditor 
+                            label="Description"
+                            value={this.state.description}
+                            onChange={this.editorChangeHandle}
+                        />
+                    </div>
+                    <div className='m-2' >
+                        <label>Attachments</label>
+                        <div></div>
+                    </div>
+                    <div className='m-2'>
+                        <label>Web links</label>
+                        <div className='d-inline-flex' >
+                            <Input id='url' label='URL' className='mr-2'  />
+                            <Input id='label' label='Label' />
+                        </div>
+                        <div  className='d-flex justify-content-end pt-2'  >
+                            <Button size='sm' variant="dark" className='mr-2 mt-2'>Link</Button>
+                            <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
+
+                        </div>
+                    </div>
+                    <div className='m-2' >
+                        <label>Assignee</label>
+                        {/* <AsyncInput /> */}
                     </div>
                 </div>
             </Col>

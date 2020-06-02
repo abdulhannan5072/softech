@@ -95,7 +95,6 @@ class Create extends Component{
 
     editorChangeHandle(value) {
         this.setState({ description: value })
-        console.log(this.state.description);
     }
 
     render(){
