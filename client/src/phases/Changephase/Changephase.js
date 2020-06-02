@@ -6,8 +6,14 @@ import DEMO from "../../store/constant";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {IconButton} from '@material-ui/core';
 import Table from '../../components/Tables/Table';
+import IssueCreate from '../TaskManagement/create'; 
+import { Modal } from '../../shared/components';
+
 
     class Changephase extends Component{
+
+        
+
         render(){
             
             
@@ -76,7 +82,7 @@ import Table from '../../components/Tables/Table';
                                 <h3>Change Phase</h3>
                                 </div>
                                 <div className="col-3 text-right">
-                                    <Button variant="dark" size="sm" className="float-right">
+                                    <Button variant="dark" size="sm"  className="float-right">
                                     Create Requirment
                                     </Button>
                                 </div>

@@ -19,6 +19,7 @@ const settings = React.lazy(() => import('./components/Account/Settings'));
 const envAdaptation = React.lazy(() => import('./phases/Changephase/EnvironmentalAdaptation'));
 const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'));
 const funAddition = React.lazy(() => import('./phases/Changephase/FunctionalityAddition'));
+const taskManagemnt = React.lazy(() => import('./phases/TaskManagement/create'));
 
 // end
 
@@ -57,6 +58,7 @@ const routes = [
     { path: '/project/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: funAddition },
     { path: '/profile', exact: true, name: 'Invite', component: profile },
     { path: '/settings', exact: true, name: 'Invite', component: settings },
+    { path: '/project/createTask', exact: true, name: 'Task', component: taskManagemnt },
 
 
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
