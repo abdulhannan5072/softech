@@ -139,7 +139,7 @@ class AdminLayout extends Component {
                     <NavBar />
                     <div className="pcoded-main-container" onClick={() => this.mobileOutClickHandler}>
                         <div className="pcoded-wrapper">
-                            <div className="pcoded-content">
+                            <div className="pcoded-content ">
                                 <div className="pcoded-inner-content">
                                     {childNav}
                                     <br/>

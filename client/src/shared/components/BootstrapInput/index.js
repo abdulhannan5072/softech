@@ -8,6 +8,7 @@ import {
 
 import InputBase from '@material-ui/core/InputBase';
 import InputLabel from '@material-ui/core/InputLabel';
+import {Form} from 'react-bootstrap';
 
 
 const Input = withStyles((theme) => ({
@@ -15,8 +16,8 @@ const Input = withStyles((theme) => ({
   input: {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: theme.palette.action.disabledBackground,
-    border: '1px solid #ced4da',
+    backgroundColor: (props)=> props.bgC? theme.palette.action.hover  : '',
+    border: (props)=> props.border? '1px solid #ced4da': '',
     fontWeight: 'bold',
     fontSize: 16,
     padding: '10px 12px',
@@ -40,7 +41,7 @@ const Input = withStyles((theme) => ({
       borderColor: theme.palette.primary.main,
     },
     '&:hover': {
-      backgroundColor: theme.palette.action.hover ,
+      backgroundColor: theme.palette.action.disabledBackground ,
       
     }
   },
@@ -62,7 +63,7 @@ const BootstrapInput = ({ label, value, ...props}) => {
 
       let LabelDiv = "";
       if(label){
-        LabelDiv = <InputLabel shrink htmlFor="{props.id}">{label}</InputLabel>
+        LabelDiv = <InputLabel shrink  htmlFor="{props.id}">{label}</InputLabel>
       }
     return(
         <Aux >
