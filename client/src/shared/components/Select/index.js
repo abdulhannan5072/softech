@@ -8,6 +8,7 @@ const BootstrapInput = withStyles((theme) => ({
     'label + &': {
       marginTop: theme.spacing(3),
     },
+    
   },
   input: {
     borderRadius: 4,
@@ -40,10 +41,10 @@ const BootstrapInput = withStyles((theme) => ({
 
 
 
-export default function CustomizedSelects({label, items}) {
-  const [age, setAge] = React.useState('to do');
+export default function CustomizedSelects({label, items, ...props}) {
+  const [item, setitem] = React.useState('to do');
   const handleChange = (event) => {
-    setAge(event.target.value);
+    setitem(event.target.value);
   };
 
   const LabelDiv = "";
@@ -55,10 +56,10 @@ export default function CustomizedSelects({label, items}) {
     <div>
       {LabelDiv}
         <NativeSelect
-          id="demo-customized-select-native"
-          value={age}
+          {...props}
+          value={item}
           onChange={handleChange}
-          input={<BootstrapInput />}
+          input={<BootstrapInput {...props} />}
         >
             {/* <option label="None" value="" /> */}
 
