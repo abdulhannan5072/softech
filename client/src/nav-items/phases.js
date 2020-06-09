@@ -23,7 +23,7 @@ export default {
                     id: 'module',
                     title: 'Module',
                     type: 'item',
-                    url: '#',
+                    url: '/project/module',
                     icon: 'feather icon-home',
                     
                 }
@@ -81,7 +81,7 @@ export default {
                     id: 'defectF',
                     title: 'Defect Management',
                     type: 'item',
-                    url: '#',
+                    url: '/project/createDefect',
                     icon: 'feather icon-home',
                 }
             ]

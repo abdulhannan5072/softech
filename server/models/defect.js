@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const defectSchema=mongoose.Schema(
     {
-        defectname:
+        defect:
         {
              type:String,
              require:true,
@@ -10,17 +10,57 @@ const defectSchema=mongoose.Schema(
              unique:1
 
         },
+        buildName:
+        {
+            type:String,
+            require:true,
+        },
+        moduleName:
+        {
+            type:String,
+            require:true,
+        },
+        deviceNmae:
+        {
+            type:String,
+            require:true,
+        },
+        defectType:
+        {
+            type:String,
+            require:true,  
+        },
+        severity:
+        {
+            type:String,
+            require:true,
+        },
+        status:
+        {
+            type:String,
+            require:true,
+        },
         description:
         {
             type:String,
             require:true,
         },
-        type:
+        comments:
         {
             type:String,
-            require:true
+            require:true,
         },
-        status:
+        assignTo:
+        {
+            type:String,
+            require:true,
+        },
+        priority:
+        {
+            type:String,
+            require:true,
+        },
+        defectViewers:
         {
             type:String,
             require:true,

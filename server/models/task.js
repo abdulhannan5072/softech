@@ -4,12 +4,41 @@ const mongoose = require('mongoose');
 
 const taskSchema=mongoose.Schema(
     {
-        taskname:
+        taskName:
         {
             type:String,
             require:true,
             trim:true,
             unique:1
+        },
+        status:{
+            type:String,
+            require:true,
+        },
+        description:
+        {
+            type:String,
+            require:true
+        },
+        url:
+        {
+            type:String,
+            require:true
+        },
+        linktext:
+        {
+            type:String,
+            require:true
+        },
+        assignTo:
+        {
+            type:String,
+            require:true
+        },
+        reporter:
+        {
+            type:String,
+            require:true
         },
         createddate:
         {
@@ -20,17 +49,6 @@ const taskSchema=mongoose.Schema(
         {
             type:String,
             require:true
-        },
-        description:
-        {
-            type:String,
-            require:true
-        },
-        assignto:
-        {
-            type:String,
-            require:true
-
         },
         startdate:
         {

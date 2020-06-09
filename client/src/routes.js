@@ -14,6 +14,8 @@ const invite = React.lazy(() => import('./components/Users/Invite'));
 const build = React.lazy(() => import('./phases/Build/Build'));
 const changephase = React.lazy(() => import('./phases/Changephase/Changephase'));
 const createBuild = React.lazy(() => import('./phases/Build/create'));
+const module= React.lazy(() => import('./phases/Module/module'));
+const createmodule = React.lazy(() => import('./phases/Module/create'));
 const profile = React.lazy(() => import('./components/Account/Profile'));
 const settings = React.lazy(() => import('./components/Account/Settings'));
 const envAdaptation = React.lazy(() => import('./phases/Changephase/EnvironmentalAdaptation'));
@@ -21,6 +23,7 @@ const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'
 const funAddition = React.lazy(() => import('./phases/Changephase/FunctionalityAddition'));
 const taskManagemnt = React.lazy(() => import('./phases/TaskManagement/create'));
 const testphase =React.lazy(()=> import('./phases/Testphase/create'));
+const defectManagement =React.lazy(()=> import('./phases/DefectManagement/create'));
 
 // end
 
@@ -50,9 +53,11 @@ const routes = [
     { path: '/projects/create', exact: true, name: 'Create new Project', component: createProject },
     { path: '/users', exact: true, name: 'Users', component: users },
     { path: '/users/invite', exact: true, name: 'Invite', component: invite },
+    { path: '/project/module', exact: true, name: 'Module', component: module },
+    { path: '/project/module/create', exact: true, name: 'Create Module', component: createmodule},
+
     { path: '/project/build', exact: true, name: 'Build', component: build },
     { path: '/project/build/create', exact: true, name: 'Create Build', component: createBuild },
-
     { path: '/project/changePhase', exact: true, name: 'Invite', component: changephase },
     { path: '/project/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: envAdaptation },
     { path: '/project/changePhase/faultRepairs', exact: true, name: 'Invite', component: faultRepairs },
@@ -61,6 +66,7 @@ const routes = [
     { path: '/settings', exact: true, name: 'Invite', component: settings },
     { path: '/project/createTask', exact: true, name: 'Task', component: taskManagemnt },
     { path: '/project/createTest', exact: true, name: 'Test', component: testphase },
+    { path: '/project/createDefect', exact: true, name: 'Test', component: defectManagement },
 
 
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },
