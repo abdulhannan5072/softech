@@ -16,7 +16,7 @@ const Input = withStyles((theme) => ({
   input: {
     borderRadius: 4,
     position: 'relative',
-    backgroundColor: (props)=> props.bgC? theme.palette.action.hover  : '',
+    backgroundColor: (props)=> props.bgc? theme.palette.action.hover  : '',
     border: (props)=> props.border? '1px solid #ced4da': '',
     fontWeight: 'bold',
     fontSize: 16,

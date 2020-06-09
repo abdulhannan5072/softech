@@ -8,7 +8,7 @@ import MenuItem from '@material-ui/core/MenuItem';
 const useStyles = makeStyles(theme => ({
   root: {
     '& .MuiTextField-root': {
-      width: 270,
+      width: '25ch',
     },
   },
 }));
