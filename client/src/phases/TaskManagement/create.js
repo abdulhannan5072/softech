@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input, Select, Formik, Form, InputField
+import {FlatCard, Input, Select, Formik, Form, InputFormik
 } from '../../shared/components';
 import {Row, Col, Button,
 } from 'react-bootstrap';
@@ -61,7 +61,7 @@ class CreateTask extends Component{
     }
 
     onSubmit= (values, { setSubmitting}) => {
-            
+            console.log(values.taskname);
     }
 
     
@@ -176,7 +176,8 @@ class CreateTask extends Component{
                 >
                     {(props)=>(
                         <Form>
-                            <InputField name='taskname' />
+                            {/* <InputFormik name='taskname' />
+                            <button type='submit' >submit</button> */}
                         </Form>
                     )}
                 </Formik>
