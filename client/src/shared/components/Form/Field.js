@@ -20,7 +20,7 @@ export const InputFormik = ({ label, ...props }) => {
     const [field, meta, helpers] = useField(props);
     return (
       <>
-        <Select {...field} {...props} label={label}
+        <Select {...field} {...props} label={label}  
         />
         {meta.touched && meta.error ? (
         <FormHelperText className='error'>{meta.error}</FormHelperText>
@@ -34,7 +34,7 @@ export const InputFormik = ({ label, ...props }) => {
     return (
       <>
         <TextField {...field} {...props} label={label}
-          error={meta.touched && meta.error? 'true':'false'}
+          error={meta.touched && meta.error? true : null}
           helperText={meta.touched && meta.error ? meta.error : null}
         />
       </>
@@ -45,7 +45,7 @@ export const InputFormik = ({ label, ...props }) => {
     return (
       <>
         <SelectTextField {...field} {...props} label={label}
-          error={meta.touched && meta.error? 'true':'false'}
+          error={meta.touched && meta.error? true : null}
           helperText={meta.touched && meta.error ? meta.error : null}
         />
         

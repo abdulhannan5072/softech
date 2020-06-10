@@ -42,10 +42,10 @@ const BootstrapInput = withStyles((theme) => ({
 
 
 export default function CustomizedSelects({label, items, ...props}) {
-  const [item, setitem] = React.useState('to do');
-  const handleChange = (event) => {
-    setitem(event.target.value);
-  };
+  // const [item, setitem] = React.useState('to do');
+  // const handleChange = (event) => {
+  //   setitem(event.target.value);
+  // };
 
   const LabelDiv = "";
   if(label){
@@ -57,8 +57,7 @@ export default function CustomizedSelects({label, items, ...props}) {
       {LabelDiv}
         <NativeSelect
           {...props}
-          value={item}
-          onChange={handleChange}
+          
           input={<BootstrapInput {...props} />}
         >
             {/* <option label="None" value="" /> */}

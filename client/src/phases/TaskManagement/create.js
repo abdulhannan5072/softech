@@ -33,7 +33,7 @@ const items =[
 
 const initialValues= {
     taskname: 'Task Name',
-    status: '',
+    status: 'progress',
     description: '',
     url: '',
     linkText: '',
@@ -61,7 +61,7 @@ class CreateTask extends Component{
     }
 
     onSubmit= (values, { setSubmitting}) => {
-            console.log(values.taskname);
+            console.log(values);
     }
 
     
@@ -118,7 +118,7 @@ class CreateTask extends Component{
                                         <label>Web links</label>
                                         <div className='d-inline-flex' >
                                             <InputFormik name='url' id='url' label='URL' className='mr-2' border='true' bgc='true'/>
-                                            <InputFormik name='linktext' id='label' label='Link text' border='true' bgc='true' />
+                                            <InputFormik name='linkText' id='label' label='Link text' border='true' bgc='true' />
                                         </div>
                                         <div  className='d-flex justify-content-end pt-2'  >
                                             <Button size='sm' variant="dark" className='mr-2 mt-2'>Link</Button>
