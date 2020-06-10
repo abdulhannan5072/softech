@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input, Select, Formik, Form, InputFormik
+import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik, QuillEditorFormik
 } from '../../shared/components';
 import {Row, Col, Button,
 } from 'react-bootstrap';
@@ -32,7 +32,7 @@ const items =[
 ]
 
 const initialValues= {
-    taskname: '',
+    taskname: 'Task Name',
     status: '',
     description: '',
     url: '',
@@ -68,70 +68,83 @@ class CreateTask extends Component{
 
     render(){
 
-        
+        const taskDetails = (
+            <Formik
+                    initialValues={initialValues}
+                    validationSchema={validationSchema}
+                    onSubmit={this.onSubmit}
+                >
+                    {(props)=>(
+                        <Form>
+                            <Paper className='p-2'>
+                                <div  >
+                                    <div className='d-flex  m-2 '>
+                                        <Button variant="dark" size='sm' type='submit' >Update</Button>
+                                        <div className='ml-auto' >
+                                            <Link to='' ><IconButton><Close/></IconButton></Link>
+                                        </div>
+                                        
+                                    </div>
+                                    <div className='mt-2' >
+                                        <InputFormik fullWidth name='taskname' id='name'  />
+                                    </div>
+                                    <div className='m-2' >
+                                        
+                                        <IconButton>
+                                            <AttachFileIcon  />
+                                        </IconButton>
+                                        
+                                        <IconButton>
+                                            <InsertLinkIcon  />
+                                        </IconButton>
+                                    </div>
 
-    const jxs =(
-                <Paper className='p-2'>
-                    <div  >
-                        <div className='d-flex flex-row-reverse m-2 '>
-                            <Link to='' ><IconButton><Close/></IconButton></Link>
-                        </div>
-                        <div className='mt-2' >
-                            <Input fullWidth id='name' value='Task Name' />
-                        </div>
-                        <div className='m-2' >
-                            
-                            <IconButton>
-                                <AttachFileIcon  />
-                            </IconButton>
-                            
-                            <IconButton>
-                                <InsertLinkIcon  />
-                            </IconButton>
-                        </div>
+                                    <div className='m-2'>
+                                        <SelectFormik name='status'  items={items} />
+                                    </div>
 
-                        <div className='m-2'>
-                            <Select  items={items} />
-                        </div>
+                                    <div className='m-2' >
+                                        <QuillEditor 
+                                            label="Description"
+                                            value={this.state.description}
+                                            onChange={this.editorChangeHandle}
+                                        />
+                                    </div>
+                                    <div className='m-2' >
+                                        <label>Attachments</label>
+                                        <div></div>
+                                    </div>
+                                    <div className='m-2'>
+                                        <label>Web links</label>
+                                        <div className='d-inline-flex' >
+                                            <InputFormik name='url' id='url' label='URL' className='mr-2' border='true' bgc='true'/>
+                                            <InputFormik name='linktext' id='label' label='Link text' border='true' bgc='true' />
+                                        </div>
+                                        <div  className='d-flex justify-content-end pt-2'  >
+                                            <Button size='sm' variant="dark" className='mr-2 mt-2'>Link</Button>
+                                            <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
 
-                        <div className='m-2' >
-                            <QuillEditor 
-                                label="Description"
-                                value={this.state.description}
-                                onChange={this.editorChangeHandle}
-                            />
-                        </div>
-                        <div className='m-2' >
-                            <label>Attachments</label>
-                            <div></div>
-                        </div>
-                        <div className='m-2'>
-                            <label>Web links</label>
-                            <div className='d-inline-flex' >
-                                <Input id='url' label='URL' className='mr-2' border='true' bgc='true'/>
-                                <Input id='label' label='Link text' border='true' bgc='true' />
-                            </div>
-                            <div  className='d-flex justify-content-end pt-2'  >
-                                <Button size='sm' variant="dark" className='mr-2 mt-2'>Link</Button>
-                                <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
-
-                            </div>
-                        </div>
-                        <div className='m-2' >
-                            <InputLabel shrink >Assignee</InputLabel>
-                            <Input fullWidth  id='name' value='' border='true' />
-                            
-                        </div>
-                        <Divider className='mt-4 mb-3' />
-                        <div className='m-2' >
-                            <InputLabel shrink >Reporter</InputLabel>
-                            <Input fullWidth  id='name' value='' border='true'/>
-                            
-                        </div>
-                        <Divider className='mt-4 mb-3 ' />
-                    </div>
-                </Paper>
-    );
+                                        </div>
+                                    </div>
+                                    <div className='m-2' >
+                                        <InputLabel shrink >Assignee</InputLabel>
+                                        <InputFormik fullWidth name='assignee'  id='name' border='true' />
+                                        
+                                    </div>
+                                    <Divider className='mt-4 mb-3' />
+                                    <div className='m-2' >
+                                        <InputLabel shrink >Reporter</InputLabel>
+                                        <InputFormik fullWidth name='createdBy'  id='name'  border='true'/>
+                                        
+                                    </div>
+                                    <Divider className='mt-4 mb-3 ' />
+                                </div>
+                            </Paper>
+                        </Form>
+                    )}
+                </Formik>
+        );
+    
 
     return(
       <Aux>
@@ -169,18 +182,7 @@ class CreateTask extends Component{
             
             
             <Col md={4} >
-                <Formik
-                    initialValues={initialValues}
-                    validationSchema={validationSchema}
-                    onSubmit={this.onSubmit}
-                >
-                    {(props)=>(
-                        <Form>
-                            {/* <InputFormik name='taskname' />
-                            <button type='submit' >submit</button> */}
-                        </Form>
-                    )}
-                </Formik>
+                {taskDetails}
             </Col>
             
         </Row>
