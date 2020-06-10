@@ -14,7 +14,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Select1(props) {
-  const items = props.data;
+  const items = props.items;
 
   const classes = useStyles();
  
