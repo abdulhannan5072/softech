@@ -45,6 +45,7 @@ import {Link} from 'react-router-dom';
                   },
                 {
                     button: true,
+                    allowOverflow: true,
                     cell: row => <More row={row}/>
                 }
               ];

@@ -66,7 +66,7 @@ class Create extends Component{
                             {(props) => (
                                 <Form>
                                     <div className='mt-5' >
-                                        <TextFieldFormik label='Module' name='Module' />
+                                        <TextFieldFormik label='Module' name='module' />
                                     </div>
                                     
                                     <div className='mt-4'>

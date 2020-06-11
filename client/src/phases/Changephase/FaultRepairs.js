@@ -7,7 +7,7 @@ import {Link} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import * as Yup from 'yup';
 import { withSnackbar } from 'notistack';
-import {Formik, Form, TextFieldFormik, SelectTextField, QuillEditorFormik
+import {Formik, Form, TextFieldFormik, SelectTextField, QuillEditorFormik, SelectTextFieldFormik
 } from '../../shared/components';
 
 const select=[
@@ -90,18 +90,18 @@ class Create extends Component{
                                 <Form>
                                      <div className='m-2'>
                                    <label>Select Build</label>
-                              <SelectTextField className='w-50' items={select}/>
+                              <SelectTextFieldFormik name='selectBuild' items={select}/>
                                 </div>
                                 <div className='m-2'>
                                    <label>Select module</label>
-                              <SelectTextField className='w-50' items={select}/>
+                              <SelectTextFieldFormik name='selectModule' items={select}/>
                                 </div>
                                 <div className='m-2'>
                                    <label>Fault Type</label>
-                              <SelectTextField className='w-50' items={faultType}/>
+                              <SelectTextFieldFormik name='faultType' items={faultType}/>
                                 </div>
                                     <div className='mt-5' >
-                                        <TextFieldFormik label='Fault name' name='Fault' />
+                                        <TextFieldFormik label='Fault name' name='fault' />
                                     </div>
                                     
                                     <div className='mt-4'>

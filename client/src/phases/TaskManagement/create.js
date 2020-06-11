@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik, QuillEditorFormik
+import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik, QuillEditorFormik, SelectTextFieldFormik
 } from '../../shared/components';
 import {Row, Col, Button,
 } from 'react-bootstrap';
@@ -100,14 +100,13 @@ class CreateTask extends Component{
                                     </div>
 
                                     <div className='m-2'>
-                                        <SelectFormik name='status'  items={items} />
+                                        <SelectTextFieldFormik name='status'  items={items} />
                                     </div>
 
                                     <div className='m-2' >
-                                        <QuillEditor 
+                                        <QuillEditorFormik 
                                             label="Description"
-                                            value={this.state.description}
-                                            onChange={this.editorChangeHandle}
+                                            name='description'
                                         />
                                     </div>
                                     <div className='m-2' >
