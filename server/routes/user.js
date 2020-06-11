@@ -17,20 +17,19 @@ routes.post('/api/signup', (req,res)=>{
             post: true,
             userId: doc
             
-
         })
     })
 })
-//Update
-routes.post('/api/update',(req,res)=>
-{
-    User.findByIdAndUpdate(req.body.id, req.body, {new:true},
-         (err,doc)=>
-         {
-        if(err) return res.status(400).send(err);
-            res.status(200).send(doc);
-        })
-})
+// //Update
+// routes.post('/api/update',(req,res)=>
+// {
+//     User.findByIdAndUpdate(req.body.id, req.body, {new:true},
+//          (err,doc)=>
+//          {
+//         if(err) return res.status(400).send(err);
+//             res.status(200).send(doc);
+//         })
+// })
 
 routes.post('/api/login', function(req,res){
 

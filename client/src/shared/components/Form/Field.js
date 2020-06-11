@@ -57,7 +57,9 @@ export const InputFormik = ({ label, ...props }) => {
     const [field, meta, helpers] = useField(props);
     return (
       <>
-        <QuillEditor {...field} {...props} label={label}
+        <QuillEditor {...props} label={label}
+          value={field.value}
+          onChange={field.onChange(field.name)}
           // error={meta.touched && meta.error? 'true':'false'}
           // helperText={meta.touched && meta.error ? meta.error : null}
         />

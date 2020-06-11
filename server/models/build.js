@@ -6,7 +6,7 @@ const buildschema=mongoose.Schema({
     build:{
         type:String,
         require:true,
-       
+        unique:true
 
     },
     description:{

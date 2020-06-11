@@ -6,7 +6,7 @@ import axios from 'axios';
 import {Link} from 'react-router-dom';
 import Aux from "../../hoc/_Aux";
 import * as Yup from 'yup';
-import {QuillEditor} from '../../shared/components';
+import { withSnackbar } from 'notistack';
 
 
 import {Formik, Form, TextFieldFormik, SelectTextFieldFormik, QuillEditorFormik
@@ -31,19 +31,21 @@ class Create extends Component{
     }
 
     onSubmit= (values, { setSubmitting}) => {
-        const data = {
-            build: values.build,
-            // description:this.state.description        
-        }
-        axios.post('/api/build/create',data)
+        
+        axios.post('/api/build/create',values)
             .then(res => {
                 console.log(res);
+                if(res.status === 200 ){
+                    this.props.enqueueSnackbar('Build created', { 
+                        variant: 'success',
+                    });
+
+                }
+                
             });
         
     }
-    // editorChangeHandle(value) {
-    //     this.setState({ description: value })
-    // }
+    
 
     render(){
         return(
@@ -68,13 +70,13 @@ class Create extends Component{
                                     <div className='mt-5' >
                                         <TextFieldFormik label='Build' name='build' />
                                     </div>
-
-                                    {/* <div className='mt-4'>
+                                    
+                                    <div className='mt-4'>
                                         <QuillEditorFormik
                                             label="Description"
                                             name='description'
                                         />
-                                    </div> */}
+                                    </div>
                                     
                                     
                                     <div className='w-25'>
@@ -93,4 +95,4 @@ class Create extends Component{
     }
 } 
 
-export default Create;
+export default withSnackbar(Create);
