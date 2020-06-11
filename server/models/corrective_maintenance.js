@@ -19,7 +19,7 @@ const correctivemaintenanceSchema=mongoose.Schema(
         require:true,
 
     },
-    module:
+    selectModule:
     {
         type:String,
         require:true, 

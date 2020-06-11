@@ -1,15 +1,16 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input, Select,
+import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik,SelectTextField,TextFieldFormik
 } from '../../shared/components';
 import {Row, Col 
 } from 'react-bootstrap';
 import QuillEditor from '../../components/Editor/QuillEditor';
 import Close from '@material-ui/icons/Close';
+import * as  Yup from 'yup';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 import {Link} from 'react-router-dom';
-import {Button, Form } from 'react-bootstrap';
+import {Button } from 'react-bootstrap';
 import {InputLabel, Paper} from '@material-ui/core';
 const types =[
     {
@@ -81,7 +82,24 @@ const severity=[
         label: 'Major'
     },
 ]
+const initialValues=
+{
+ defect:'',   
+ buildName:'',
+ moduleName:'',
+ defectType:'',
+ severity:'',
+ description:'',
+ comments:'',
+ assignTo:'',
+ defectViewers:''
 
+};
+const validationSchema=Yup.object().shape({
+defect:Yup.string()
+.min(3,'Too Short')
+.required('this field is required')
+});
 
 class CreateDefect extends Component
 {
@@ -105,30 +123,38 @@ class CreateDefect extends Component
         this.setState({ comments: value });
     }
 
+    onSubmit= (values, { setSubmitting}) => {
+        console.log(values.defect);
+}
+
 
 
 
 render()
 {
-    return(
-        <Aux>
+    const defectDetails=(
+        <Formik
+        initialValues={initialValues}
+        validationSchema={validationSchema}
+        onSubmit={this.onSubmit}
+    >
+          {(props)=>(
+              <Form>
         <Paper className='p-3'> 
+        
+      
         <Row>
-            <Col>
-                <div className="row d-flex align-items-center mb-3">
-                    <div className="col-9">
-                        <h3>Defect</h3>
-                    </div>
-                </div>   
-            </Col>
-        </Row>
-        <Row>
- 
+        <Col md={4}>
+     
+         <div className='mt-5' >                                    
+  <TextFieldFormik label='Defect'  name='defect'/>
+                       </div>
+    </Col>
         <Col md={4} >
          
              <div className='w-50'>
                  <label>Build</label>
-                 <Select items={select}/>
+                 <SelectTextField items={select}/>
              </div>
          
      </Col>
@@ -136,18 +162,11 @@ render()
         
              <div className='m-2'>
              <label>Module</label>
-                 <Select className='w-50' items={select}/>
+                 <SelectTextField className='w-50' items={select}/>
              </div>
         
      </Col>
-     <Col md={4} >
-         
-             <div className='m-2'>
-             <label>Device</label>
-                 <Select items={select}/>
-             </div>
-        
-     </Col>
+   
 
     </Row>
     <Row>
@@ -156,7 +175,7 @@ render()
  
       <div className='m-2'>
       <label>Defect Type</label>
-          <Select items={types}/>
+          <SelectTextField items={types}/>
       </div>
  
 </Col>
@@ -164,7 +183,7 @@ render()
  
                     <div className='m-2'>
                     <label>Severity</label>
-                        <Select items={severity}/>
+                        <SelectTextField items={severity}/>
                     </div>
                 
 </Col>
@@ -196,37 +215,58 @@ render()
 <Row>
     <Col md={4}>
        <div className='m-2' >
-            <label>Assign To</label>
-                           
+            <InputLabel shrink >Assign To</InputLabel>  
            <Input fullWidth  id='name' value='' border='true' />
                             
          </div>
     </Col>
-    <Col md={4}>
-        <div className='m-2'>
-            <label>Priority</label>
-            <Select items={priority}/>
-        </div>
+              <Col md={4}>
+                <div className='m-2'>
+                 <label>Priority</label>
+                 <SelectTextField items={priority}/>
+              </div>
     </Col>
     <Col md={4}>
        <div className='m-2' >
-            <label>Defect Viewers</label>
-                           
+            <InputLabel shrink >Defect Viewers</InputLabel>
            <Input fullWidth  id='name' value='' border='true' />
                             
          </div>
     </Col>
 </Row>
-<Row>
+    <Row>
     <Col md={8}>
-<div  className='d-flex justify-content-end pt-2'  >
-          <Button size='sm' variant="dark" className='mr-2 mt-2'>Save</Button>
+        <div  className='d-flex justify-content-end pt-2'  >
+          <Button size='sm' variant="dark" className='mr-2 mt-2'>Update</Button>
           <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
 
              </div>
              </Col>
              </Row>
-</Paper>   
+             
+        </Paper>
+        </Form>
+          )}
+    </Formik>
+          
+    );
+
+    return(
+        <Aux>
+          
+         <Row>
+            <Col>
+                <div className="row d-flex align-items-center mb-3">
+                    <div className="col-9">
+                        <h3>Defect</h3>
+                    </div>
+                </div>   
+            </Col>
+        </Row>
+        <div>
+                {defectDetails}
+            </div>
+             
      </Aux>
     );
 }

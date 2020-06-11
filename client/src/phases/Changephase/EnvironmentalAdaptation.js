@@ -1,240 +1,132 @@
 import React,{ Component } from "react";
-import Aux from "../../hoc/_Aux";
-import {Form, Button, Card} from 'react-bootstrap';
-import InputField from '../../components/Forms/InputField';
+import { Button} from 'react-bootstrap';
 import Close from '@material-ui/icons/Close';
+import {IconButton, Paper } from '@material-ui/core';
 import axios from 'axios';
-import {IconButton, Paper} from '@material-ui/core';
 import {Link} from 'react-router-dom';
-import QuillEditor from '../../components/Editor/QuillEditor';
+import Aux from "../../hoc/_Aux";
+import * as Yup from 'yup';
+import { withSnackbar } from 'notistack';
+import {Formik, Form, TextFieldFormik, SelectTextField, QuillEditorFormik,SelectTextFieldFormik,
+} from '../../shared/components';
 
+const select=[
+    {
+    value: 'select ',
+    label: 'Select '
+    },
+]
+const enadvType=[
+    {
+        value: 'none',
+        label: 'Select none',
+    },
+    {
+        value: 'Operating System',
+        label: 'Operating System',
+    },
+    {
+        value: 'Hardware',
+        label: 'Hardware',
+    },
 
+]
+const initialValues= {
+    selectBuild: '',
+    selectModule:'',
+    enadvType:'',
+    name:'',
+    adoptationrequirements: '',
 
-class EnvironmentalAdaptation extends Component{
-    constructor (props) {
-        super(props)
-        this.state = this.state
-        this.editorChangeHandle = this.editorChangeHandle.bind(this)
-      }
-    state = {
-        adaptiveMaintenanceForm: {
-            selectBuild: {
-                elementType: 'dropdown',
-                elementConfig: {
-                    error: false,
-                    label: 'Select Build',
-                    data:[
-                        {
-                            value: 'none',
-                            label: 'Select none',
-                        },
-                    ]
-                },
-                value: 'none',
-                validation: {
-                    required: true,
-                },
-                touched: false,
-                valid: false,
-                validationMessage: ''
-            },
-            envAdaptType: {
-                elementType: 'dropdown',
-                elementConfig: {
-                    error: false,
-                    label: 'Type of envirnmental adopt',
-                    data:[
-                        {
-                            value: 'none',
-                            label: 'Select none',
-                        },
-                        {
-                            value: 'Operating System',
-                            label: 'Operating System',
-                        },
-                        {
-                            value: 'Hardware',
-                            label: 'Hardware',
-                        },
-                    ]
-                },
-                value: 'none',
-                validation: {
-                    required: true,
-                },
-                touched: false,
-                valid: false,
-                validationMessage: ''
-            },
-            name: {
-                
-                elementType: 'textfield',
-                elementConfig: {
-                    required: true,
-                    error: false,
-                    label: 'Name',
-                    
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                touched: false,
-                valid: false,
-                validationMessage: ''
-            },
-            module: {
-                
-                elementType: 'textfield',
-                elementConfig: {
-                    required: true,
-                    error: false,
-                    label: 'Module name',
-                    placeholder: 'Enter Module name'
-                },
-                value: '',
-                validation: {
-                    required: true,
-                },
-                touched: false,
-                valid: false,
-                validationMessage: ''
-            },
-            
-        },
-
-        formIsValid: false,
-        requirements: ''
-    };
-    postDataHandler = ()=>{
-        if(this.state.formIsValid){
-            const data = {
-            
-                selectBuild:this.state.adaptiveMaintenanceForm.selectBuild.value,
-                envAdaptType:this.state.adaptiveMaintenanceForm.envAdaptType.value,
-                name:this.state.adaptiveMaintenanceForm.name.value,
-                module:this.state.adaptiveMaintenanceForm.module.value,
-                requirements:this.state.requirements,
-             }
     
-            axios.post('/api/adaptivemaintenance/create',data)
-                .then(res => {
-                    console.log(res);
-                });
-        } else console.log("Fill fields");
+};
+
+const validationSchema= Yup.object().shape({
+    selectBuild: Yup.string()
+        .required('Required'),
+});
+
+class Create extends Component{
+    constructor(props){
+        super(props);
+    }
+
+    onSubmit= (values, { setSubmitting}) => {
+        
+        axios.post('/api/adaptivemaintenance/create',values)
+            .then(res => {
+                console.log(res);
+                if(res.status === 200 ){
+                    this.props.enqueueSnackbar('Fault repairs created', { 
+                        variant: 'success',
+                    });
+
+                }
+                
+            });
         
     }
-
-    isCheckValidity = (value, rules) => {
-        let isValid = true;
-        let error = [true,''];
-
-        if (rules.required){
-            isValid = value.trim() !== '' && isValid;
-            const message = `${!isValid ? 'This field is required!':''}`
-            error = !isValid ? [isValid,message]:error;
-        }
-        
-        return error;
-    }
-
-    inputChangeHandler = (event, elementIdentifier) => {
-        // console.log(event.target.value);
-        const updateForm = {...this.state.adaptiveMaintenanceForm};
-        const updatedElement = {...updateForm[elementIdentifier]};
-        const updatedElementConfig = {...updatedElement['elementConfig']}
-        updatedElement.value= event.target.value;
-        const error = this.isCheckValidity(updatedElement.value, updatedElement.validation);
-        updatedElement.valid = error[0];
-        updatedElement.validationMessage = error[1];
-        updatedElement.touched= true;
-        if (updatedElement.touched && !updatedElement.valid){
-            updatedElementConfig.error= true;
-        } else {
-            updatedElementConfig.error = false;
-        }
-        updatedElement['elementConfig'] = updatedElementConfig;
-        updateForm[elementIdentifier] = updatedElement;
-        this.setState({adaptiveMaintenanceForm: updateForm});
-
-        let formIsValid = true;
-        for(let e in updateForm ){
-            formIsValid = updateForm[e].valid && formIsValid;
-        }
-        this.setState({formIsValid: formIsValid});
-    }
-
-
-    editorChangeHandle(value) {
-        this.setState({ requirements: value })
-        
-    }
+    
 
     render(){
-        const showValidation = (elementIdentifier) =>{
-            let errorMessage = null;
-            const updateForm = {...this.state.adaptiveMaintenanceForm};
-            const updatedElement = {...updateForm[elementIdentifier]};
-            
-            console.log(updatedElement.value);
-            if (updatedElement.validation && !updatedElement.valid){
-                errorMessage = updatedElement.validationMessage;
-            }
-
-            return errorMessage;
-        }
-
-        const formElementsArray = [];
-        for (let key in this.state.adaptiveMaintenanceForm){
-            formElementsArray.push({
-                id: key,
-                config: this.state.adaptiveMaintenanceForm[key]
-            });
-        }
-
-        
-
-
         return(
             <Aux>
-                <div className=''>
-                    {/* <div className='d-flex flex-row-reverse mb-3 '>
-                        <Link to='/project/changePhase' ><IconButton><Close/></IconButton></Link>
-                    </div> */}
-                
-                    <Paper className="p-5" >
+                <div className='page'>
+                <div className='d-flex flex-row-reverse mb-3 '>
+                    <Link to='/project/changePhase' ><IconButton><Close/></IconButton></Link>
+                </div>
+                    <Paper className='p-5  '>
+                        
                         <div className="mb-2">
-                            <h3 >Adaptive Maintenance</h3>
+                            <h3 >Adaptive Maintenance </h3>
                         </div>
-                        <Form onSubmit={this.postDataHandler}>
-                        {formElementsArray.map(formElement => (
-                            <InputField className='mt-4 ' 
-                                key={formElement.id} 
-                                type={formElement.config.elementType} 
-                                {...formElement.config.elementConfig} 
-                                value={formElement.config.value}
-                                helperText={showValidation(formElement.id)}
-                                onChange={(event) => this.inputChangeHandler(event, formElement.id)}
-                            />
-                        ))}
-                        <div className='mt-4'>
-                            <QuillEditor
-                                label="Adoptation Requirements"
-                                value={this.state.requirements}
-                                onChange={this.editorChangeHandle}
-                            />
-                        </div>
-                        <div className='w-25'>
-                            <Button disabled={!this.state.formIsValid} className='mt-5 ml-3' variant="dark" type="submit">
-                                Create
-                            </Button>
-                        </div>
-                        </Form>
+                        
+                        <Formik 
+                            initialValues={initialValues}
+                            validationSchema={validationSchema}
+                            onSubmit={this.onSubmit}
+                        >
+                            {(props) => (
+                                <Form>
+                                     <div className='m-2'>
+                                   <label>Select Build</label>
+                              <SelectTextFieldFormik name='selectBuild'  items={select}/>
+                                </div>
+                                <div className='m-2'>
+                                   <label>Select module</label>
+                              <SelectTextFieldFormik name='selectModule' items={select}/>
+                                </div>
+                                <div className='m-2'>
+                                   <label>Adatative Type</label>
+                              <SelectTextFieldFormik  name='enadvType' items={enadvType}/>
+                                </div>
+                                    <div className='mt-5' >
+                                        <TextFieldFormik label='Name' name='name' />
+                                    </div>
+                                    
+                                    <div className='mt-4'>
+                                        <QuillEditorFormik
+                                            label="Adoptation Requirements"
+                                            name='adoptation requirements'
+                                        />
+                                    </div>
+                                    
+                                    
+                                    
+                                    <div className='w-25'>
+                                        <Button className='mt-5 ' variant="dark" type="submit">
+                                            Create
+                                        </Button>
+                                    </div>
+                                </Form>
+                            )}
+                        </Formik>               
                     </Paper>
                 </div>
             </Aux>
         );
-    }
-}
 
-export default EnvironmentalAdaptation;
+    }
+} 
+
+export default withSnackbar(Create);
