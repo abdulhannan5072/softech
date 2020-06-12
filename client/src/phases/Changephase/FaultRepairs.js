@@ -31,18 +31,18 @@ const faultType=[
  }
 ]
 const initialValues= {
-    selectBuild: '',
+    selectBuild:'',
     selectModule:'',
     faultType:'',
     fault:'',
-    description: '',
+    description:'',
 
     
 };
 
 const validationSchema= Yup.object().shape({
-    module: Yup.string()
-        .min(2, 'Too Short!')
+ selectBuild: Yup.string()
+       
         .required('Required'),
 });
 

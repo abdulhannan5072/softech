@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Aux from '../../hoc/_Aux';
-import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik,SelectTextField,TextFieldFormik
+import {FlatCard, Input, Select, Formik, Form, InputFormik, SelectFormik,SelectTextFieldFormik,TextFieldFormik,QuillEditorFormik
 } from '../../shared/components';
+import { withSnackbar } from 'notistack';
+import axios from 'axios';
 import {Row, Col 
 } from 'react-bootstrap';
 import QuillEditor from '../../components/Editor/QuillEditor';
@@ -85,49 +87,44 @@ const severity=[
 const initialValues=
 {
  defect:'',   
- buildName:'',
- moduleName:'',
+ selectBuild:'',
+ selectModule:'',
  defectType:'',
  severity:'',
  description:'',
  comments:'',
  assignTo:'',
- defectViewers:''
+ defectViewers:'',
 
 };
 const validationSchema=Yup.object().shape({
-defect:Yup.string()
+defect: Yup.string()
 .min(3,'Too Short')
 .required('this field is required')
 });
 
-class CreateDefect extends Component
+class Create extends Component
 {
 
     constructor (props) {
-        super(props)
-        this.state = this.state
-        this.editorChangeHandle = this.editorChangeHandle.bind(this)
-        this.editorChangeHandleD = this.editorChangeHandleD.bind(this)
-      }
-      state={
-        description:'',
-        comments:''
-
-      }
-          
-    editorChangeHandle(value) {
-        this.setState({ description: value });
+        super(props);
     }
-    editorChangeHandleD(value) {
-        this.setState({ comments: value });
+      
+      onSubmit= (values, { setSubmitting}) => {
+        
+        axios.post('/api/defect/create',values)
+            .then(res => {
+                console.log(res);
+                if(res.status === 200 ){
+                    this.props.enqueueSnackbar('Defect Phase created', { 
+                        variant: 'success',
+                    });
+
+                }
+                
+            });
+        
     }
-
-    onSubmit= (values, { setSubmitting}) => {
-        console.log(values.defect);
-}
-
-
 
 
 render()
@@ -154,7 +151,7 @@ render()
          
              <div className='w-50'>
                  <label>Build</label>
-                 <SelectTextField items={select}/>
+                 <SelectTextFieldFormik name='selectBuild' items={select}/>
              </div>
          
      </Col>
@@ -162,7 +159,7 @@ render()
         
              <div className='m-2'>
              <label>Module</label>
-                 <SelectTextField className='w-50' items={select}/>
+                 <SelectTextFieldFormik name='selectModule' items={select}/>
              </div>
         
      </Col>
@@ -175,7 +172,7 @@ render()
  
       <div className='m-2'>
       <label>Defect Type</label>
-          <SelectTextField items={types}/>
+          <SelectTextFieldFormik name='defectType' items={types}/>
       </div>
  
 </Col>
@@ -183,7 +180,7 @@ render()
  
                     <div className='m-2'>
                     <label>Severity</label>
-                        <SelectTextField items={severity}/>
+                        <SelectTextFieldFormik name='severity' items={severity}/>
                     </div>
                 
 </Col>
@@ -193,10 +190,9 @@ render()
 <Row>
     <Col>
                         <div className='m-2' >
-                            <QuillEditor 
+                            <QuillEditorFormik
                                 label="Description"
-                                value={this.state.description}
-                                onChange={this.editorChangeHandle}
+                                name='description'
                             />
                         </div>
     </Col>
@@ -204,41 +200,39 @@ render()
 <Row>
     <Col >
                         <div className='m-2' >
-                            <QuillEditor 
+                            <QuillEditorFormik
                                 label="Comments"
-                                value={this.state.comments}
-                                onChange={this.editorChangeHandleD}
+                                 name='comments'
                             />
                         </div>
     </Col>
 </Row>
 <Row>
     <Col md={4}>
-       <div className='m-2' >
-            <InputLabel shrink >Assign To</InputLabel>  
-           <Input fullWidth  id='name' value='' border='true' />
-                            
-         </div>
+     
+        <div className='mt-5' >
+        <TextFieldFormik label='Assign To' name='assignTo' />
+        </div>
     </Col>
               <Col md={4}>
                 <div className='m-2'>
                  <label>Priority</label>
-                 <SelectTextField items={priority}/>
+                 <SelectTextFieldFormik name='priority'items={priority}/>
               </div>
     </Col>
     <Col md={4}>
-       <div className='m-2' >
-            <InputLabel shrink >Defect Viewers</InputLabel>
-           <Input fullWidth  id='name' value='' border='true' />
-                            
-         </div>
+     
+           <div className='mt-5' >
+        <TextFieldFormik label='Defect Viewers' name='defectViewers' />
+        </div>               
+        
     </Col>
 </Row>
     <Row>
     <Col md={8}>
         <div  className='d-flex justify-content-end pt-2'  >
-          <Button size='sm' variant="dark" className='mr-2 mt-2'>Update</Button>
-          <Button size='sm' variant="dark" className='mr-0 mt-2'>Cancel</Button>
+          <Button className='mt-5 ' variant="dark" type="submit">Update</Button>
+          <Button className='mt-5 ' variant="dark" type="submit">Cancel</Button>
 
              </div>
              </Col>
@@ -271,4 +265,4 @@ render()
     );
 }
 }
-export default CreateDefect;
+export default withSnackbar(Create);
