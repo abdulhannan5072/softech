@@ -34,7 +34,7 @@ class Create extends Component{
             .then(res => {
                 console.log(res);
                 if(res.status === 200 ){
-                    this.props.enqueueSnackbar('Build created', { 
+                    this.props.enqueueSnackbar('Module created', { 
                         variant: 'success',
                     });
 

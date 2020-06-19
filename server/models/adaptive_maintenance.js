@@ -19,12 +19,12 @@ const adaptivemaintenanceSchema=mongoose.Schema(
         require:true,
 
     },
-    module:
+    selectModule:
     {
         type:String,
         require:true,
        },
-    requirements:
+    adoptationrequirements:
     {
         type:String,
         require:true,

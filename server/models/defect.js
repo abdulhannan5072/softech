@@ -20,22 +20,13 @@ const defectSchema=mongoose.Schema(
             type:String,
             require:true,
         },
-        deviceNmae:
-        {
-            type:String,
-            require:true,
-        },
+     
         defectType:
         {
             type:String,
             require:true,  
         },
         severity:
-        {
-            type:String,
-            require:true,
-        },
-        status:
         {
             type:String,
             require:true,

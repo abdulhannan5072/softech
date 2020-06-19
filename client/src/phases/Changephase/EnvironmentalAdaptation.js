@@ -36,7 +36,7 @@ const initialValues= {
     selectModule:'',
     enadvType:'',
     name:'',
-    adoptationRequirements: '',
+    adoptationrequirements: '',
 
     
 };
@@ -52,7 +52,18 @@ class Create extends Component{
     }
 
     onSubmit= (values, { setSubmitting}) => {
-        console.log(values);
+        
+        axios.post('/api/adaptivemaintenance/create',values)
+            .then(res => {
+                console.log(res);
+                if(res.status === 200 ){
+                    this.props.enqueueSnackbar(' Adaptive created', { 
+                        variant: 'success',
+                    });
+
+                }
+                
+            });
         
     }
     
@@ -93,12 +104,13 @@ class Create extends Component{
                                         <TextFieldFormik label='Name' name='name' />
                                     </div>
                                     
-                                    <div className='mt-4'>
-                                        <QuillEditorFormik
-                                            label="Adoptation Requirements"
-                                            name='adoptationRequirements'
-                                        />
-                                    </div>
+                          
+                                    <div className='m-2' >
+                            <QuillEditorFormik
+                                label="AdoptationRequirements"
+                                name='adoptationrequirements'
+                            />
+                        </div>
                                     
                                     <div className='w-25'>
                                         <Button className='mt-5 ' variant="dark" type="submit">
