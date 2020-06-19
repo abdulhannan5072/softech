@@ -5,65 +5,57 @@ import {Row, Col, Button,
 import DEMO from "../../store/constant";
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {IconButton} from '@material-ui/core';
+import Table from '../../components/Tables/Table';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
-import {Table } from '../../shared/components';
-
-
-const data = [ 
-    { build:'1.0', description:'------', created:'March 01, 2020', by:'abdulhannan5072'},
-    
-];
-
-const columns = [
-    {
-        title: 'Build',
-        field: 'build',
-      
-    },
-    {
-        title: 'Description',
-        field: 'description',
-    },
-    {
-        title: 'Created',
-        field: 'created',
-    },
-    {
-        title: 'By',
-        field: 'by',
-      },
-  ];
 
     class Build extends Component{
-
-        state={
-            data:[]
-        }
-
-        componentDidMount(){
-            this.getData();
-        }
-
-        getData = () => {
-            axios.get('/api/getBuild')
-                .then((res)=>{
-                    console.log(res);
-                    this.setState({data: res.data});
-                    console.log(this.state.data);
-
-                })
-                .catch((err)=>{
-                    console.log(err);
-                })
-        }
         
         render(){
+   
+            const data = [ 
+                {id:1, name:'1.0', description:'------', created:'March 01, 2020', by:'abdulhannan5072'},
+                
+            ];
+
+            const columns = [
+                
+                {
+                  name: 'Build',
+                  selector: 'name',
+                  
+                  style: {
+                    color: '#202124',
+                    fontSize: '14px',
+                    fontWeight: 500,
+                  },
+                  cell: row => <a className='text-primary' href={DEMO.BLANK_LINK}>{row.name}</a>
+                  
+                },
+                {
+                  name: 'Description',
+                  selector: 'description',
+                },
+                {
+                  name: 'Created',
+                  selector: 'created',
+                },
+                {
+                    name: 'By',
+                    selector: 'by',
+                  },
+                {
+                    button: true,
+                    allowOverflow: true,
+                    cell: row => <More row={row}/>
+                }
+              ];
             
               const More = ({row}) => (
+                  
                     <IconButton aria-label='morehoriz' >
                         <MoreHorizIcon/>
                     </IconButton>
+                  
               );
             
 
@@ -81,7 +73,7 @@ const columns = [
                                     </Button>
                                 </div>
                             </div>   
-                            <Table title={null} columns={columns} data={this.state.data} />
+                            <Table columns={columns} dataItems={data} />
 
                         </Col>
                     </Row>

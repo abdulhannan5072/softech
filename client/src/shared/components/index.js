@@ -7,6 +7,8 @@ export { FormikWrapper as Formik, Form } from './Form';
 export { default as TextField } from './TextField';
 export { default as SelectTextField } from './SelectTextField';
 export { default as QuillEditor } from './QuillEditor';
+export { default as Table } from './Table';
+
 
 export { 
     InputFormik, 
