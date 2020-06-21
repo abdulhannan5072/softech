@@ -38,7 +38,7 @@ export default {
                     id: 'changephase',
                     title: 'Change Phase',
                     type: 'item',
-                    url: '/project/changePhase',
+                    url: '/project/changePhase/faultRepairs',
                     icon: 'feather icon-home',
                 }
             ]
@@ -52,7 +52,7 @@ export default {
                     id: 'taskM',
                     title: 'Task Management',
                     type: 'item',
-                    url: '/project/createTask',
+                    url: '/project/Task',
                     icon: 'feather icon-home',
                    
                 }
@@ -81,7 +81,7 @@ export default {
                     id: 'defectF',
                     title: 'Defect Management',
                     type: 'item',
-                    url: '/project/createDefect',
+                    url: '/project/Defect',
                     icon: 'feather icon-home',
                 }
             ]

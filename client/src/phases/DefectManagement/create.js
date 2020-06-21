@@ -94,6 +94,7 @@ const initialValues=
  description:'',
  comments:'',
  assignTo:'',
+ priority:'',
  defectViewers:'',
 
 };

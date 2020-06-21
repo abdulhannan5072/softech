@@ -9,17 +9,7 @@ const defectSchema=mongoose.Schema(
              trim:true,
              unique:1
 
-        },
-        buildName:
-        {
-            type:String,
-            require:true,
-        },
-        moduleName:
-        {
-            type:String,
-            require:true,
-        },
+        }, 
      
         defectType:
         {
@@ -65,8 +55,18 @@ const defectSchema=mongoose.Schema(
         {
             type:String,
             require:true,
-        }
-
+        },
+        selectBuild:
+        {
+            type:String,
+            require:true,
+        },
+        selectModule:
+            {
+                type:String,
+                require:true,
+            },
+    
     }
 )
 

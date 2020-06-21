@@ -11,6 +11,12 @@ routes.post('/api/task/create',(req,res)=>{
 }
 )
 })
+routes.get('/api/gettask', (req,res)=>{
+    Task.find({}, (err, data)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(data);
+    })
+})
 //Delete
 routes.post('/api/task/delete', function(req,res){
     let id =req.body.id;

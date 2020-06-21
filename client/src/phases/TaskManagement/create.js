@@ -32,12 +32,14 @@ const items =[
 ]
 
 const initialValues= {
-    taskname: 'Task Name',
-    status: 'progress',
+    taskName: 'Task Name',
+    status: '',
     description: '',
     url: '',
     linkText: '',
-    assignee: '',
+    assignTo: '',
+    reporter:'',
+    dueDate:'',
     createdBy: ''
 };
 
@@ -86,7 +88,7 @@ class CreateTask extends Component{
                                         
                                     </div>
                                     <div className='mt-2' >
-                                        <InputFormik fullWidth name='taskname' id='name'  />
+                                        <InputFormik fullWidth name='taskName' id='name'  />
                                     </div>
                                     <div className='m-2' >
                                         
@@ -127,13 +129,20 @@ class CreateTask extends Component{
                                     </div>
                                     <div className='m-2' >
                                         <InputLabel shrink >Assignee</InputLabel>
-                                        <InputFormik fullWidth name='assignee'  id='name' border='true' />
+                                        <InputFormik fullWidth name='assignTo'  id='name' border='true' />
                                         
                                     </div>
                                     <Divider className='mt-4 mb-3' />
                                     <div className='m-2' >
                                         <InputLabel shrink >Reporter</InputLabel>
-                                        <InputFormik fullWidth name='createdBy'  id='name'  border='true'/>
+                                        <InputFormik fullWidth name='reporter'  id='name'  border='true'/>
+                                        
+                                    </div>
+                                    <Divider className='mt-4 mb-3 ' />
+                                    <Divider className='mt-4 mb-3' />
+                                    <div className='m-2' >
+                                        <InputLabel shrink >Due Date</InputLabel>
+                                        <InputFormik fullWidth name='dueDate'  id='name'  border='true'/>
                                         
                                     </div>
                                     <Divider className='mt-4 mb-3 ' />

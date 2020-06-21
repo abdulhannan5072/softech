@@ -9,7 +9,12 @@ routes.post('/api/perfectivemaintenance/create',(req,res)=>{
 }
 )
 })
-
+routes.get('/api/getperfectivemaintenance', (req,res)=>{
+    PerfectiveMaintenance.find({}, (err, data)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(data);
+    })
+})
 //Delete
 routes.post('/api/perfectivemaintenance/delete', function(req,res){
     let id =req.body.id;

@@ -12,6 +12,13 @@ routes.post('/api/module/create',(req,res)=>{
 }
 )
 })
+//Get
+routes.get('/api/getModule', (req,res)=>{
+    Module.find({}, (err, data)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(data);
+    })
+})
 //Delete
 routes.post('/api/module/delete', function(req,res)
 {

@@ -9,6 +9,13 @@ routes.post('/api/correctivemaintenance/create',(req,res)=>{
 }
 )
 })
+//find
+routes.get('/api/getcorrectivemaintenance', (req,res)=>{
+    CorrectiveMaintenance.find({}, (err, data)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(data);
+    })
+})
 //Delete
 routes.post('/api/correctivemaintenance/delete', function(req,res){
     let id =req.body.id;

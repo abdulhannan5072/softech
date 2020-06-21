@@ -9,6 +9,12 @@ routes.post('/api/adaptivemaintenance/create',(req,res)=>{
 }
 )
 })
+routes.get('/api/getadaptivemaintenance', (req,res)=>{
+    AdaptiveMaintenance.find({}, (err, data)=>{
+        if(err) return res.status(400).send(err);
+        res.status(200).send(data);
+    })
+})
 //Delete
 routes.post('/api/adaptivemaintenance/delete', function(req,res){
     let id =req.body.id;

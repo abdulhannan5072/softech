@@ -19,11 +19,17 @@ const createmodule = React.lazy(() => import('./phases/Module/create'));
 const profile = React.lazy(() => import('./components/Account/Profile'));
 const settings = React.lazy(() => import('./components/Account/Settings'));
 const envAdaptation = React.lazy(() => import('./phases/Changephase/EnvironmentalAdaptation'));
+const AdaptationM =React.lazy(() => import('./phases/Changephase/AdoptativeMaintenance/AdoptativeMaintenance'));
 const faultRepairs = React.lazy(() => import('./phases/Changephase/FaultRepairs'));
+const FaultRepairs=React.lazy(() => import('./phases/Changephase/FaultRepairs/faultpairs'));
 const funAddition = React.lazy(() => import('./phases/Changephase/FunctionalityAddition'));
+const perfectiveM = React.lazy(() => import('./phases/Changephase/PerfectiveMaintenance/PerfectiveMaintenance'));
 const taskManagemnt = React.lazy(() => import('./phases/TaskManagement/create'));
+const TaskManagement=React.lazy(() => import('./phases/TaskManagement/Task'));
 const testphase =React.lazy(()=> import('./phases/Testphase/create'));
 const defectManagement =React.lazy(()=> import('./phases/DefectManagement/create'));
+const Defect =React.lazy(()=> import('./phases/DefectManagement/Defect'));
+
 
 // end
 
@@ -59,14 +65,19 @@ const routes = [
     { path: '/project/build', exact: true, name: 'Build', component: build },
     { path: '/project/build/create', exact: true, name: 'Create Build', component: createBuild },
     { path: '/project/changePhase', exact: true, name: 'Invite', component: changephase },
-    { path: '/project/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: envAdaptation },
-    { path: '/project/changePhase/faultRepairs', exact: true, name: 'Invite', component: faultRepairs },
-    { path: '/project/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: funAddition },
+    { path: '/project/changePhase/environmentalAdaptation/create', exact: true, name: 'Invite', component: envAdaptation },
+    { path: '/project/changePhase/environmentalAdaptation', exact: true, name: 'Invite', component: AdaptationM },
+    { path: '/project/changePhase/faultRepairs/create', exact: true, name: 'Invite', component: faultRepairs },
+    { path: '/project/changePhase/faultRepairs', exact: true, name: 'Invite', component: FaultRepairs },
+    { path: '/project/changePhase/functionatilityAddition', exact: true, name: 'Invite', component: perfectiveM },
+    { path: '/project/changePhase/functionatilityAddition/create', exact: true, name: 'Invite', component: funAddition },
     { path: '/profile', exact: true, name: 'Invite', component: profile },
     { path: '/settings', exact: true, name: 'Invite', component: settings },
     { path: '/project/createTask', exact: true, name: 'Task', component: taskManagemnt },
+    { path: '/project/Task', exact: true, name: 'Task', component: TaskManagement },
     { path: '/project/createTest', exact: true, name: 'Test', component: testphase },
     { path: '/project/createDefect', exact: true, name: 'Test', component: defectManagement },
+    { path: '/project/Defect', exact: true, name: 'Test', component: Defect },
 
 
     { path: '/dashboard/default', exact: true, name: 'Default', component: DashboardDefault },

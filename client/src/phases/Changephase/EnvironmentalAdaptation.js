@@ -34,7 +34,7 @@ const enadvType=[
 const initialValues= {
     selectBuild: '',
     selectModule:'',
-    enadvType:'',
+    envAdaptType:'',
     name:'',
     adoptationrequirements: '',
 
@@ -98,7 +98,7 @@ class Create extends Component{
                                 </div>
                                 <div className='m-2'>
                                    <label>Adatative Type</label>
-                              <SelectTextFieldFormik  name='enadvType' items={enadvType}/>
+                              <SelectTextFieldFormik  name='envAdaptType' items={enadvType}/>
                                 </div>
                                     <div className='mt-5' >
                                         <TextFieldFormik label='Name' name='name' />

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
-import Aux from "../../hoc/_Aux";
+import Aux from "../../hoc/_Aux/index";
 import {Row, Col, Button, 
         } from 'react-bootstrap';
-import DEMO from "../../store/constant";
+
 import MoreHorizIcon from '@material-ui/icons/MoreHoriz';
 import {IconButton} from '@material-ui/core';
 import {Table } from '../../shared/components';
@@ -14,24 +14,60 @@ const data = [ {id:1, name:'1.0', description:'------', created:'March 01, 2020'
 
 const columns = [
     {
-        title: 'Module',
-        field: 'module',
+        title: 'Defect',
+        field: 'defect',
       
+    },
+    {
+        title: 'Select Build',
+        field: 'selectBuild',
+      
+    },
+    {
+        title: 'Select Module',
+        field: 'selectModule',
+      
+    },
+    {
+        title: 'Defect Type',
+        field: 'defectType',
+      
+    },
+    {
+        title: 'Severity',
+        field: 'severity',
     },
     {
         title: 'Description',
         field: 'description',
     },
     {
-        title: 'Created',
-        field: 'created',
+        title: 'Comments',
+        field: 'comments',
     },
     {
-        title: 'By',
-        field: 'by',
-      },
+        title: 'Assign To',
+        field: 'assignTo',
+    },
+    {
+        title: 'Priority',
+        field: 'priority',
+    },
+    {
+        title: 'Defect Viewers',
+        field: 'defectViewers',
+    },
+    {
+        title: 'created date',
+        field: 'createddate',
+    },
+    {
+        title: 'Created by',
+        field: 'createdby',
+    },
+ 
   ];
-    class Module extends Component{
+    class Defect extends Component{
         state={
             data:[]
         }
@@ -41,7 +77,7 @@ const columns = [
         }
 
         getData = () => {
-            axios.get('/api/getModule')
+            axios.get('/api/getdefect')
                 .then((res)=>{
                     console.log(res);
                     this.setState({data: res.data});
@@ -73,11 +109,11 @@ const columns = [
                         <Col>
                             <div className="row d-flex align-items-center mb-3">
                                 <div className="col-9">
-                                <h3>Module</h3>
+                                <h3>Defect Management</h3>
                                 </div>
                                 <div className="col-3 text-right">
                                     <Button variant="dark" size="sm" className="float-right">
-                                    <Link to='/project/module/create' className='text-light'>Create Module</Link>
+                                    <Link to='/project/createDefect' className='text-light'>Create </Link>
                                     </Button>
                                 </div>
                             </div>   
@@ -92,4 +128,4 @@ const columns = [
     }
 
 
-export default Module;
+export default Defect;
