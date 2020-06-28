@@ -144,8 +144,9 @@ render()
         <Row>
         <Col md={4}>
      
-         <div className='mt-5' >                                    
-  <TextFieldFormik label='Defect'  name='defect'/>
+         <div className='mt-4' >      
+                                 
+      <TextFieldFormik label='Defect'  name='defect'/>
                        </div>
     </Col>
         <Col md={4} >
@@ -216,7 +217,7 @@ render()
         </div>
     </Col>
               <Col md={4}>
-                <div className='m-2'>
+                <div className='mt-4'>
                  <label>Priority</label>
                  <SelectTextFieldFormik name='priority'items={priority}/>
               </div>
@@ -224,7 +225,9 @@ render()
     <Col md={4}>
      
            <div className='mt-5' >
+            <div >
         <TextFieldFormik label='Defect Viewers' name='defectViewers' />
+        </div>  
         </div>               
         
     </Col>

@@ -25,7 +25,7 @@ const taskSchema=mongoose.Schema(
             type:String,
             require:true
         },
-        linktext:
+        linkText:
         {
             type:String,
             require:true
@@ -40,6 +40,11 @@ const taskSchema=mongoose.Schema(
             type:String,
             require:true
         },
+        dueDate:
+        {
+            type:String,
+            require:true
+        },
         createddate:
         {
             type:String,
@@ -50,18 +55,7 @@ const taskSchema=mongoose.Schema(
             type:String,
             require:true
         },
-        startdate:
-        {
-            type:String,
-            require:true
-
-        },
-        enddate:
-        {
-            type:String,
-            require:true
-
-        }
+   
 
     }
 )

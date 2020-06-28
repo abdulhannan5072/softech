@@ -35,7 +35,7 @@ const columns = [
     },
     {
         title: 'Link text',
-        field: 'linktext',
+        field: 'linkText',
     },
     {
         title: 'Assign To',
@@ -44,6 +44,11 @@ const columns = [
     {
         title: 'Reporter',
         field: 'reporter',
+    
+    },
+    {
+        title: 'Due Date',
+        field: 'dueDate',
     },
     {
         title: 'created date',
